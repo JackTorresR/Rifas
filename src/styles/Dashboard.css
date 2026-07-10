@@ -1,0 +1,38 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 14px;
+  margin: -30px auto 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.dashboard__card {
+  background: var(--creme-card);
+  border-radius: var(--raio-md);
+  padding: 16px 18px;
+  box-shadow: var(--sombra);
+  text-align: center;
+}
+
+.dashboard__card--admin {
+  text-align: left;
+}
+
+.dashboard__valor {
+  font-family: var(--fonte-display);
+  font-size: 26px;
+  color: var(--roxo-profundo);
+}
+
+.dashboard__label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.dashboard__card--disponivel .dashboard__valor { color: var(--verde-disponivel); }
+.dashboard__card--reservado .dashboard__valor { color: #c99000; }
+.dashboard__card--pago .dashboard__valor { color: var(--vermelho-pago); }

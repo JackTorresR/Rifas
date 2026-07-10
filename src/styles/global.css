@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Design tokens — inspirados no pôster "Festinha das Crianças":
+   ribbon vermelho, roxo profundo, medalhão dourado, confete colorido.
+   ========================================================================== */
+:root {
+  --roxo-profundo: #3E1660;
+  --roxo-real: #6B2FA3;
+  --vermelho-festa: #E4363F;
+  --dourado: #FFC72C;
+  --dourado-escuro: #E8A500;
+  --verde-disponivel: #2FBF71;
+  --amarelo-reservado: #FFC93C;
+  --vermelho-pago: #E4363F;
+  --creme: #FFF8ED;
+  --creme-card: #FFFFFF;
+  --tinta: #2A1B3D;
+  --tinta-suave: #6b5f80;
+  --borda: #ECE3F5;
+  --sombra: 0 10px 30px -12px rgba(62, 22, 96, 0.25);
+
+  --fonte-display: 'Fredoka', system-ui, sans-serif;
+  --fonte-corpo: 'Nunito', system-ui, sans-serif;
+
+  --raio-sm: 10px;
+  --raio-md: 16px;
+  --raio-lg: 26px;
+  --raio-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--creme);
+  color: var(--tinta);
+  font-family: var(--fonte-corpo);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 8% 12%, rgba(255, 199, 44, 0.16), transparent 40%),
+    radial-gradient(circle at 92% 8%, rgba(228, 54, 63, 0.12), transparent 38%),
+    radial-gradient(circle at 50% 100%, rgba(107, 47, 163, 0.1), transparent 45%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-display);
+  margin: 0;
+  color: var(--roxo-profundo);
+}
+
+button {
+  font-family: var(--fonte-corpo);
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Foco visível para acessibilidade de teclado */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--roxo-real);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.botao {
+  border: none;
+  border-radius: var(--raio-pill);
+  padding: 12px 26px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+
+.botao:hover {
+  transform: translateY(-1px);
+}
+
+.botao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.botao-primario {
+  background: var(--vermelho-festa);
+  color: white;
+  box-shadow: 0 8px 20px -6px rgba(228, 54, 63, 0.55);
+}
+
+.botao-secundario {
+  background: white;
+  color: var(--roxo-profundo);
+  border: 2px solid var(--borda);
+}
+
+.botao-fantasma {
+  background: transparent;
+  color: var(--roxo-profundo);
+  padding: 8px 14px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--raio-pill);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.badge-disponivel { background: rgba(47, 191, 113, 0.14); color: #1a8f52; }
+.badge-reservado { background: rgba(255, 201, 60, 0.22); color: #8a6300; }
+.badge-pago { background: rgba(228, 54, 63, 0.14); color: #b2222b; }
+
+.spinner {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 4px solid var(--borda);
+  border-top-color: var(--vermelho-festa);
+  animation: girar 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+.tela-carregando {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 40vh;
+  color: var(--tinta-suave);
+  font-weight: 700;
+}
+
+.mensagem-erro {
+  background: #fdecec;
+  border: 1px solid #f3b7b9;
+  color: #9c1f27;
+  border-radius: var(--raio-sm);
+  padding: 12px 16px;
+  font-weight: 700;
+}

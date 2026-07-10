@@ -1,0 +1,165 @@
+.tela-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--roxo-profundo), var(--roxo-real));
+  padding: 20px;
+}
+
+.card-login {
+  background: white;
+  border-radius: var(--raio-lg);
+  padding: 32px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--sombra);
+}
+
+.card-login h1 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.card-login p {
+  color: var(--tinta-suave);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.admin-topo {
+  background: var(--roxo-profundo);
+  color: white;
+  padding: 18px 0;
+}
+
+.admin-topo__conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-topo h1 {
+  color: white;
+  font-size: 20px;
+}
+
+.admin-abas {
+  display: flex;
+  gap: 8px;
+  margin: 22px 0 18px;
+  border-bottom: 2px solid var(--borda);
+  overflow-x: auto;
+}
+
+.admin-aba {
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  border-bottom: 3px solid transparent;
+  white-space: nowrap;
+}
+
+.admin-aba--ativa {
+  color: var(--roxo-profundo);
+  border-color: var(--vermelho-festa);
+}
+
+.painel-secao {
+  background: white;
+  border-radius: var(--raio-md);
+  padding: 20px;
+  box-shadow: var(--sombra);
+  margin-bottom: 30px;
+}
+
+.painel-secao__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.busca-input {
+  padding: 10px 14px;
+  border-radius: var(--raio-pill);
+  border: 2px solid var(--borda);
+  min-width: 240px;
+  font-size: 14px;
+}
+
+.tabela-wrapper {
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.tabela-reservas {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tabela-reservas th {
+  text-align: left;
+  padding: 10px 12px;
+  color: var(--tinta-suave);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid var(--borda);
+}
+
+.tabela-reservas td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--borda);
+  vertical-align: middle;
+}
+
+.tabela-reservas__acoes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.botao-tabela {
+  border: none;
+  border-radius: var(--raio-sm);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--borda);
+  color: var(--roxo-profundo);
+}
+
+.botao-tabela--perigo {
+  background: rgba(228, 54, 63, 0.12);
+  color: #b2222b;
+}
+
+.botao-tabela--sucesso {
+  background: rgba(47, 191, 113, 0.14);
+  color: #1a8f52;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.form-grid--full {
+  grid-column: 1 / -1;
+}
+
+.sem-resultados {
+  text-align: center;
+  color: var(--tinta-suave);
+  padding: 30px 0;
+}
