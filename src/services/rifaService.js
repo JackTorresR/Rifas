@@ -12,33 +12,35 @@ import {
   updateDoc,
   writeBatch,
   addDoc,
-} from 'firebase/firestore';
-import { db } from './firebase';
-import { formatarNumeroId } from '../utils/formatters';
+} from "firebase/firestore";
+import { db } from "./firebase";
+import { formatarNumeroId } from "../utils/formatters";
 
-const COLECAO_RIFA = 'rifa';
-const COLECAO_PEDIDOS = 'pedidos';
-const CONFIG_DOC = 'config/rifa';
+const COLECAO_RIFA = "rifa";
+const COLECAO_PEDIDOS = "pedidos";
+const CONFIG_DOC = "config/rifa";
 
 /* -------------------------------------------------------------------------- */
 /* Configuração da rifa                                                      */
 /* -------------------------------------------------------------------------- */
 
 export const configPadrao = {
-  nomeRifa: 'Rifa Beneficente',
-  descricao: 'Ajude a nossa causa e concorra a um prêmio especial!',
+  nomeRifa: "Rifa Beneficente",
+  descricao: "Ajude a nossa causa e concorra a um prêmio especial!",
   valorNumero: 10,
   quantidadeNumeros: 200,
-  fotoPremio: '',
-  pixChave: '',
-  pixFavorecido: '',
-  whatsappContato: '',
+  fotoPremio: "",
+  pixChave: "",
+  pixFavorecido: "",
+  whatsappContato: "",
 };
 
 export function ouvirConfiguracao(callback) {
   const ref = doc(db, CONFIG_DOC);
   return onSnapshot(ref, (snap) => {
-    callback(snap.exists() ? { ...configPadrao, ...snap.data() } : configPadrao);
+    callback(
+      snap.exists() ? { ...configPadrao, ...snap.data() } : configPadrao,
+    );
   });
 }
 
@@ -59,7 +61,7 @@ export async function salvarConfiguracao(config) {
  * Escuta em tempo real todos os documentos da coleção "rifa", ordenados por número.
  */
 export function ouvirNumeros(callback) {
-  const q = query(collection(db, COLECAO_RIFA), orderBy('numero'));
+  const q = query(collection(db, COLECAO_RIFA), orderBy("numero"));
   return onSnapshot(q, (snapshot) => {
     const numeros = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
     callback(numeros);
@@ -89,10 +91,9 @@ export async function garantirNumerosCriados(quantidadeNumeros) {
         numero,
         reservado: false,
         pago: false,
-        nome: '',
-        telefone: '',
-        email: '',
-        observacao: '',
+        nome: "",
+        telefone: "",
+        observacao: "",
         dataReserva: null,
       });
     });
@@ -110,7 +111,11 @@ export async function garantirNumerosCriados(quantidadeNumeros) {
  * selecionados já havia sido reservado por outra pessoa. Os demais números que
  * ainda estavam livres são reservados normalmente.
  */
-export async function reservarNumeros(numerosSelecionados, comprador, quantidadeNumeros) {
+export async function reservarNumeros(
+  numerosSelecionados,
+  comprador,
+  quantidadeNumeros,
+) {
   let numerosIndisponiveis = [];
   let numerosReservados = [];
 
@@ -120,7 +125,7 @@ export async function reservarNumeros(numerosSelecionados, comprador, quantidade
     numerosReservados = [];
 
     const refs = numerosSelecionados.map((n) =>
-      doc(db, COLECAO_RIFA, formatarNumeroId(n, quantidadeNumeros))
+      doc(db, COLECAO_RIFA, formatarNumeroId(n, quantidadeNumeros)),
     );
 
     // Todas as leituras devem ocorrer antes de qualquer escrita dentro da transação.
@@ -141,7 +146,6 @@ export async function reservarNumeros(numerosSelecionados, comprador, quantidade
         pago: false,
         nome: comprador.nome,
         telefone: comprador.telefone,
-        email: comprador.email || '',
         dataReserva: serverTimestamp(),
       });
     });
@@ -152,13 +156,14 @@ export async function reservarNumeros(numerosSelecionados, comprador, quantidade
       numeros: numerosReservados.map((n) => n.numero),
       nome: comprador.nome,
       telefone: comprador.telefone,
-      email: comprador.email || '',
       data: serverTimestamp(),
     });
   }
 
   if (numerosIndisponiveis.length > 0) {
-    const erro = new Error('Alguns números já foram reservados por outra pessoa.');
+    const erro = new Error(
+      "Alguns números já foram reservados por outra pessoa.",
+    );
     erro.numerosIndisponiveis = numerosIndisponiveis;
     erro.numerosReservados = numerosReservados.map((n) => n.numero);
     throw erro;
@@ -183,10 +188,9 @@ export async function cancelarReserva(numeroId) {
   await updateDoc(doc(db, COLECAO_RIFA, numeroId), {
     reservado: false,
     pago: false,
-    nome: '',
-    telefone: '',
-    email: '',
-    observacao: '',
+    nome: "",
+    telefone: "",
+    observacao: "",
     dataReserva: null,
   });
 }
@@ -199,7 +203,6 @@ export async function editarComprador(numeroId, dados) {
   await updateDoc(doc(db, COLECAO_RIFA, numeroId), {
     nome: dados.nome,
     telefone: dados.telefone,
-    email: dados.email || '',
-    observacao: dados.observacao || '',
+    observacao: dados.observacao || "",
   });
 }

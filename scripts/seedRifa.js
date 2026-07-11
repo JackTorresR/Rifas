@@ -55,7 +55,6 @@ async function seed() {
       pago: false,
       nome: '',
       telefone: '',
-      email: '',
       observacao: '',
       dataReserva: null,
     });

@@ -33,20 +33,6 @@ export default function FormularioReserva({ comprador, erros, enviando, onChange
         />
         {erros.telefone && <div className="campo__erro">{erros.telefone}</div>}
       </div>
-
-      <div className="campo">
-        <label htmlFor="email">Email (opcional)</label>
-        <input
-          id="email"
-          type="email"
-          autoComplete="email"
-          placeholder="seuemail@exemplo.com"
-          value={comprador.email}
-          onChange={(e) => onChange('email', e.target.value)}
-        />
-        {erros.email && <div className="campo__erro">{erros.email}</div>}
-      </div>
-
       <div className="modal__rodape">
         <button type="submit" className="botao botao-primario" disabled={enviando} style={{ flex: 1 }}>
           {enviando ? 'Reservando…' : 'Reservar números'}
