@@ -1,142 +1,147 @@
 .cabecalho {
-  position: relative;
-  background: linear-gradient(160deg, var(--roxo-profundo) 0%, var(--roxo-real) 100%);
-  border-radius: 0 0 var(--raio-lg) var(--raio-lg);
-  padding: 28px 0 40px;
   color: white;
   overflow: hidden;
+  position: relative;
+  padding: 28px 0 40px;
+  border-radius: 0 0 var(--raio-lg) var(--raio-lg);
+  background: linear-gradient(
+    160deg,
+    var(--roxo-profundo) 0%,
+    var(--roxo-real) 100%
+  );
 }
 
 .cabecalho::before,
 .cabecalho::after {
-  content: '';
+  content: "";
+  opacity: 0.5;
   position: absolute;
   border-radius: 50%;
-  opacity: 0.5;
 }
 
 .cabecalho::before {
-  width: 160px;
-  height: 160px;
-  background: var(--dourado);
-  filter: blur(10px);
   top: -70px;
   left: -50px;
+  width: 160px;
+  height: 160px;
   opacity: 0.25;
+  filter: blur(10px);
+  background: var(--dourado);
 }
 
 .cabecalho::after {
   width: 220px;
-  height: 220px;
-  background: var(--vermelho-festa);
-  filter: blur(20px);
-  bottom: -110px;
   right: -70px;
+  height: 220px;
   opacity: 0.25;
+  bottom: -110px;
+  filter: blur(20px);
+  background: var(--vermelho-festa);
 }
 
 .cabecalho__conteudo {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr auto;
   gap: 28px;
+  display: grid;
+  position: relative;
   align-items: center;
+  grid-template-columns: 1fr auto;
 }
 
 .cabecalho__ribbon {
-  display: inline-block;
-  background: var(--vermelho-festa);
   color: white;
-  font-family: var(--fonte-display);
-  font-weight: 600;
   font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  margin-bottom: 14px;
+  display: inline-block;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 6px 16px;
   border-radius: var(--raio-pill);
-  margin-bottom: 14px;
+  background: var(--vermelho-festa);
+  font-family: var(--fonte-display);
 }
 
 .cabecalho__titulo {
-  font-size: clamp(28px, 4.5vw, 44px);
   color: white;
   line-height: 1.05;
+  font-size: clamp(28px, 4.5vw, 44px);
 }
 
 .cabecalho__descricao {
   margin-top: 10px;
-  color: rgba(255, 255, 255, 0.85);
   font-size: 15px;
   max-width: 46ch;
   line-height: 1.5;
+  white-space: pre-line;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .cabecalho__premio {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .cabecalho__premio-foto {
   width: 150px;
   height: 150px;
-  border-radius: var(--raio-md);
   object-fit: cover;
-  border: 4px solid rgba(255, 255, 255, 0.35);
   box-shadow: var(--sombra);
+  border-radius: var(--raio-md);
   background: rgba(255, 255, 255, 0.08);
+  border: 4px solid rgba(255, 255, 255, 0.35);
 }
 
 .cabecalho__premio-placeholder {
   width: 150px;
   height: 150px;
-  border-radius: var(--raio-md);
-  border: 3px dashed rgba(255, 255, 255, 0.4);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
   font-size: 13px;
   text-align: center;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--raio-md);
+  color: rgba(255, 255, 255, 0.7);
+  border: 3px dashed rgba(255, 255, 255, 0.4);
 }
 
 .medalhao-preco {
-  position: relative;
   width: 118px;
   height: 118px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #fff6da, var(--dourado) 70%);
-  border: 3px dashed rgba(62, 22, 96, 0.35);
   display: flex;
-  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 50%;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   color: var(--roxo-profundo);
-  flex-shrink: 0;
   box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.35);
+  border: 3px dashed rgba(62, 22, 96, 0.35);
+  background: radial-gradient(circle at 32% 28%, #fff6da, var(--dourado) 70%);
 }
 
 .medalhao-preco__valor {
-  font-family: var(--fonte-display);
-  font-weight: 700;
-  font-size: 22px;
   line-height: 1;
+  font-size: 22px;
+  font-weight: 700;
+  font-family: var(--fonte-display);
 }
 
 .medalhao-preco__label {
   font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
   margin-top: 4px;
+  font-weight: 800;
   text-align: center;
+  letter-spacing: 0.06em;
 }
 
 @media (max-width: 720px) {
   .cabecalho__conteudo {
-    grid-template-columns: 1fr;
     text-align: center;
+    grid-template-columns: 1fr;
   }
   .cabecalho__premio {
     flex-direction: row;
@@ -146,5 +151,11 @@
   .cabecalho__premio-placeholder {
     width: 110px;
     height: 110px;
+  }
+
+  .cabecalho__descricao {
+    overflow-y: auto;
+    max-height: 160px;
+    padding-right: 8px;
   }
 }
