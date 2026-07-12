@@ -1,8 +1,10 @@
+import QRCode from "qrcode";
 import { useState } from "react";
 import "../styles/Modal.css";
-import FormularioReserva from "./FormularioReserva";
-import { validarComprador } from "../utils/validators";
 import { formatarNumeroExibicao } from "../utils/formatters";
+import { gerarPix } from "../utils/pix";
+import { validarComprador } from "../utils/validators";
+import FormularioReserva from "./FormularioReserva";
 
 const COMPRADOR_VAZIO = { nome: "", telefone: "" };
 
@@ -16,13 +18,15 @@ export default function ModalReserva(props = {}) {
     onRemoverNumero,
   } = props;
 
-  const [comprador, setComprador] = useState(COMPRADOR_VAZIO);
   const [erros, setErros] = useState({});
+  const [qrCode, setQrCode] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [resultado, setResultado] = useState(null);
+  const [pixCopiaCola, setPixCopiaCola] = useState("");
+  const [comprador, setComprador] = useState(COMPRADOR_VAZIO);
 
   const valorTotal = (
-    (resultado?.reservados.length || 0) * Number(config.valorNumero)
+    (resultado?.reservados?.length || 0) * Number(config.valorNumero)
   ).toFixed(2);
 
   function handleChange(campo, valor) {
@@ -40,11 +44,31 @@ export default function ModalReserva(props = {}) {
     try {
       const { numerosIndisponiveis, numerosReservados } =
         await onReservar(comprador);
+
       setResultado({
         sucesso: true,
-        indisponiveis: numerosIndisponiveis || [],
         reservados: numerosReservados || [],
+        indisponiveis: numerosIndisponiveis || [],
       });
+
+      const valor = (
+        numerosReservados.length * Number(config.valorNumero)
+      ).toFixed(2);
+
+      const payload = gerarPix({
+        chave: config.pixChave,
+        nome: config.pixFavorecido,
+        cidade: "FORTALEZA",
+        valor,
+        descricao: config.nomeRifa,
+      });
+
+      setPixCopiaCola(payload);
+
+      const qr = await QRCode.toDataURL(payload);
+
+      setQrCode(qr);
+
       if (!numerosIndisponiveis || numerosIndisponiveis.length === 0) {
         setComprador(COMPRADOR_VAZIO);
       }
@@ -62,12 +86,12 @@ export default function ModalReserva(props = {}) {
     try {
       const temCopyApi = navigator.clipboard && window.isSecureContext;
       if (temCopyApi) {
-        await navigator.clipboard.writeText(config.pixChave);
+        await navigator.clipboard.writeText(pixCopiaCola);
       }
 
       if (!temCopyApi) {
         const input = document.createElement("textarea");
-        input.value = config.pixChave;
+        input.value = pixCopiaCola;
         input.style.position = "fixed";
         input.style.opacity = "0";
         document.body.appendChild(input);
@@ -156,6 +180,27 @@ export default function ModalReserva(props = {}) {
         {resultado?.sucesso && (
           <div className="modal__pix">
             <h3>Pagamento via PIX</h3>
+            {qrCode && (
+              <div
+                style={{
+                  display: "flex",
+                  marginBottom: 20,
+                  justifyContent: "center",
+                }}
+              >
+                <img
+                  src={qrCode}
+                  alt="QR Code PIX"
+                  style={{
+                    width: 220,
+                    height: 220,
+                    padding: 12,
+                    borderRadius: 12,
+                    background: "#fff",
+                  }}
+                />
+              </div>
+            )}
             <p>
               <strong>Favorecido:</strong>
               <br />
