@@ -219,13 +219,11 @@ export default function TabelaReservas({ numeros, totalNumeros }) {
           </button>
         </div>
       </div>
-
       {erro && (
         <div className="mensagem-erro" style={{ marginBottom: 12 }}>
           {erro}
         </div>
       )}
-
       <div className="tabela-wrapper">
         <table className="tabela-reservas">
           <thead>
@@ -244,6 +242,8 @@ export default function TabelaReservas({ numeros, totalNumeros }) {
               const emEdicao = editandoId === item.id;
               const carregando = processandoId === item.id;
 
+              const estaPago = status === "pago";
+
               return (
                 <tr key={item.id}>
                   <td>{formatarNumeroExibicao(item.numero, totalNumeros)}</td>
@@ -256,7 +256,6 @@ export default function TabelaReservas({ numeros, totalNumeros }) {
                           : "Pago"}
                     </span>
                   </td>
-
                   {emEdicao ? (
                     <>
                       <td>
@@ -312,40 +311,44 @@ export default function TabelaReservas({ numeros, totalNumeros }) {
                         )}
                         {status === "reservado" && (
                           <button
-                            className="botao-tabela botao-tabela--sucesso"
                             disabled={carregando}
+                            title="Marcar número como pago"
+                            className="botao-tabela botao-tabela--sucesso"
                             onClick={() => executarAcao(item.id, "pagar")}
                           >
-                            Marcar pago
+                            Pagar
                           </button>
                         )}
-                        {status === "pago" && (
+                        {estaPago && (
                           <button
-                            className="botao-tabela"
                             disabled={carregando}
+                            className="botao-tabela"
+                            title="Desfazer pagamento"
                             onClick={() =>
                               executarAcao(item.id, "desmarcar-pago")
                             }
                           >
-                            Desfazer pagamento
+                            Desfazer
                           </button>
                         )}
-                        {status !== "disponivel" && (
+                        {estaPago && (
                           <button
-                            className="botao-tabela botao-tabela--perigo"
                             disabled={carregando}
+                            title="Cancelar reserva"
+                            className="botao-tabela botao-tabela--perigo"
                             onClick={() => executarAcao(item.id, "cancelar")}
                           >
-                            Cancelar reserva
+                            Cancelar
                           </button>
                         )}
                         {status === "reservado" && (
                           <button
-                            className="botao-tabela botao-tabela--perigo"
                             disabled={carregando}
+                            title="Liberar número"
+                            className="botao-tabela botao-tabela--perigo"
                             onClick={() => executarAcao(item.id, "liberar")}
                           >
-                            Liberar número
+                            Liberar
                           </button>
                         )}
                       </td>
@@ -356,22 +359,21 @@ export default function TabelaReservas({ numeros, totalNumeros }) {
             })}
           </tbody>
         </table>
-
         {numerosFiltrados.length === 0 && (
           <div className="sem-resultados">Nenhum resultado encontrado.</div>
         )}
       </div>
       <div
         style={{
+          marginTop: 16,
           display: "flex",
           justifyContent: "flex-end",
-          marginTop: 16,
         }}
       >
         <button
           type="button"
-          className="botao botao-secundario"
           onClick={exportarTxtNumeros}
+          className="botao botao-secundario"
         >
           Exportar números TXT
         </button>
