@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import Header from '../components/Header';
-import Dashboard from '../components/Dashboard';
-import GridNumeros from '../components/GridNumeros';
-import SelecaoFlutuante from '../components/SelecaoFlutuante';
-import ModalReserva from '../components/ModalReserva';
-import Footer from '../components/Footer';
-import { useRifa } from '../hooks/useRifa';
-import { reservarNumeros } from '../services/rifaService';
+import { useState } from "react";
+import Header from "../components/Header";
+import Dashboard from "../components/Dashboard";
+import GridNumeros from "../components/GridNumeros";
+import SelecaoFlutuante from "../components/SelecaoFlutuante";
+import ModalReserva from "../components/ModalReserva";
+import Footer from "../components/Footer";
+import { useRifa } from "../hooks/useRifa";
+import { reservarNumeros } from "../services/rifaService";
 
 export default function Home() {
   const { config, numeros, estatisticas, carregando } = useRifa();
@@ -15,7 +15,9 @@ export default function Home() {
 
   function alternarNumero(numero) {
     setSelecionados((atual) =>
-      atual.includes(numero) ? atual.filter((n) => n !== numero) : [...atual, numero]
+      atual.includes(numero)
+        ? atual.filter((n) => n !== numero)
+        : [...atual, numero],
     );
   }
 
@@ -34,14 +36,25 @@ export default function Home() {
       const { numerosReservados } = await reservarNumeros(
         selecionados,
         comprador,
-        config.quantidadeNumeros
+        config.quantidadeNumeros,
       );
-      setSelecionados((atual) => atual.filter((n) => !numerosReservados.includes(n)));
+      setSelecionados((atual) =>
+        atual.filter((n) => !numerosReservados.includes(n)),
+      );
       return { numerosReservados, numerosIndisponiveis: [] };
     } catch (err) {
       if (err.numerosIndisponiveis) {
-        setSelecionados((atual) => atual.filter((n) => !err.numerosReservados?.includes(n) && !err.numerosIndisponiveis.includes(n)));
-        return { numerosReservados: err.numerosReservados || [], numerosIndisponiveis: err.numerosIndisponiveis };
+        setSelecionados((atual) =>
+          atual.filter(
+            (n) =>
+              !err.numerosReservados?.includes(n) &&
+              !err.numerosIndisponiveis.includes(n),
+          ),
+        );
+        return {
+          numerosReservados: err.numerosReservados || [],
+          numerosIndisponiveis: err.numerosIndisponiveis,
+        };
       }
       throw err;
     }
@@ -74,11 +87,12 @@ export default function Home() {
       />
       {modalAberto && (
         <ModalReserva
-          selecionados={selecionados}
-          totalNumeros={config.quantidadeNumeros}
+          config={config}
           onFechar={fecharModal}
-          onRemoverNumero={removerNumero}
+          selecionados={selecionados}
           onReservar={handleReservar}
+          onRemoverNumero={removerNumero}
+          totalNumeros={config.quantidadeNumeros}
         />
       )}
       <Footer config={config} />

@@ -1,24 +1,24 @@
 .barra-selecao {
-  position: fixed;
   left: 0;
   right: 0;
+  z-index: 40;
   bottom: 18px;
   display: flex;
-  justify-content: center;
-  z-index: 40;
+  position: fixed;
   padding: 0 16px;
+  justify-content: center;
 }
 
 .barra-selecao__conteudo {
-  background: var(--roxo-profundo);
-  color: white;
-  border-radius: var(--raio-pill);
-  padding: 10px 12px 10px 22px;
-  display: flex;
-  align-items: center;
   gap: 16px;
-  box-shadow: 0 14px 34px -10px rgba(62, 22, 96, 0.55);
+  display: flex;
+  color: white;
   max-width: 100%;
+  align-items: center;
+  padding: 10px 12px 10px 22px;
+  border-radius: var(--raio-pill);
+  background: var(--roxo-profundo);
+  box-shadow: 0 14px 34px -10px rgba(62, 22, 96, 0.55);
 }
 
 .barra-selecao__texto {
@@ -27,86 +27,86 @@
 }
 
 .barra-selecao__numeros {
-  display: flex;
   gap: 6px;
+  display: flex;
   flex-wrap: wrap;
   max-width: 260px;
   overflow: hidden;
 }
 
 .barra-selecao__chip {
-  background: rgba(255, 255, 255, 0.16);
-  border-radius: var(--raio-pill);
-  padding: 3px 10px;
   font-size: 12px;
   font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--raio-pill);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .overlay-modal {
-  position: fixed;
   inset: 0;
-  background: rgba(42, 27, 61, 0.55);
+  z-index: 60;
   display: flex;
+  padding: 16px;
+  position: fixed;
   align-items: center;
   justify-content: center;
-  z-index: 60;
-  padding: 16px;
+  background: rgba(42, 27, 61, 0.55);
 }
 
 .modal {
-  background: var(--creme-card);
-  border-radius: var(--raio-lg);
-  padding: 26px;
   width: 100%;
+  padding: 26px;
   max-width: 460px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: var(--sombra);
+  background: var(--creme-card);
+  border-radius: var(--raio-lg);
 }
 
 .modal__cabecalho {
+  gap: 10px;
   display: flex;
+  margin-bottom: 14px;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 14px;
 }
 
 .modal__fechar {
-  background: transparent;
   border: none;
-  font-size: 20px;
-  color: var(--tinta-suave);
-  line-height: 1;
   padding: 4px;
+  line-height: 1;
+  font-size: 20px;
+  background: transparent;
+  color: var(--tinta-suave);
 }
 
 .modal__lista-numeros {
+  gap: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
   margin-bottom: 18px;
 }
 
 .modal__numero-chip {
-  background: rgba(107, 47, 163, 0.1);
+  gap: 6px;
+  display: flex;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 5px 12px;
+  align-items: center;
   color: var(--roxo-profundo);
   border-radius: var(--raio-pill);
-  padding: 5px 12px;
-  font-weight: 700;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  background: rgba(107, 47, 163, 0.1);
 }
 
 .modal__numero-chip button {
-  background: none;
-  border: none;
-  color: var(--vermelho-festa);
-  font-weight: 800;
   padding: 0;
+  border: none;
   line-height: 1;
+  background: none;
+  font-weight: 800;
+  color: var(--vermelho-festa);
 }
 
 .campo {
@@ -115,8 +115,8 @@
 
 .campo label {
   display: block;
-  font-weight: 700;
   font-size: 13px;
+  font-weight: 700;
   margin-bottom: 6px;
   color: var(--roxo-profundo);
 }
@@ -125,57 +125,85 @@
 .campo textarea,
 .campo select {
   width: 100%;
+  font-size: 15px;
   padding: 11px 14px;
+  background: white;
+  color: var(--tinta);
   border-radius: var(--raio-sm);
   border: 2px solid var(--borda);
   font-family: var(--fonte-corpo);
-  font-size: 15px;
-  background: white;
-  color: var(--tinta);
 }
 
 .campo input:focus,
 .campo textarea:focus,
 .campo select:focus {
-  border-color: var(--roxo-real);
   outline: none;
+  border-color: var(--roxo-real);
 }
 
 .campo__erro {
-  color: var(--vermelho-pago);
   font-size: 12px;
   margin-top: 4px;
   font-weight: 700;
+  color: var(--vermelho-pago);
 }
 
 .modal__rodape {
-  display: flex;
   gap: 10px;
+  display: flex;
   margin-top: 18px;
 }
 
 .mensagem-sucesso {
-  background: rgba(47, 191, 113, 0.12);
-  border: 1px solid rgba(47, 191, 113, 0.4);
   color: #1a8f52;
-  border-radius: var(--raio-sm);
-  padding: 14px 16px;
   font-weight: 700;
+  padding: 14px 16px;
   text-align: center;
   margin-bottom: 14px;
+  border-radius: var(--raio-sm);
+  background: rgba(47, 191, 113, 0.12);
+  border: 1px solid rgba(47, 191, 113, 0.4);
 }
 
 .mensagem-indisponiveis {
+  font-size: 14px;
+  color: #9c1f27;
+  padding: 12px 16px;
+  margin-bottom: 14px;
   background: #fdecec;
   border: 1px solid #f3b7b9;
-  color: #9c1f27;
   border-radius: var(--raio-sm);
-  padding: 12px 16px;
-  font-size: 14px;
-  margin-bottom: 14px;
 }
 
 .mensagem-indisponiveis strong {
   display: block;
   margin-bottom: 4px;
+}
+
+.modal__pix {
+  margin-top: 18px;
+  padding: 18px;
+  background: #faf7ff;
+  border-radius: var(--raio-sm);
+  border: 2px solid var(--borda);
+}
+
+.modal__pix h3 {
+  margin: 0 0 12px;
+  color: var(--roxo-profundo);
+}
+
+.modal__pix p {
+  margin: 8px 0;
+}
+
+.modal__pix button {
+  width: 100%;
+  margin: 16px 0 10px;
+}
+
+.modal__pix small {
+  display: block;
+  text-align: center;
+  color: var(--tinta-suave);
 }

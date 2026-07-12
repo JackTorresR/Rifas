@@ -6,23 +6,29 @@
 export function validarComprador({ nome, telefone }) {
   const erros = {};
 
-  if (!nome || nome.trim().length < 3) {
+  const naoTemNome = !nome || nome.trim().length < 3;
+  if (naoTemNome) {
     erros.nome = "Informe seu nome completo.";
   }
 
   const telefoneDigitos = (telefone || "").replace(/\D/g, "");
-  if (telefoneDigitos.length > 0 && telefoneDigitos.length < 10) {
+  const quantidadeTelefone = telefoneDigitos.length;
+  const naoTemTelefone = quantidadeTelefone > 0 && quantidadeTelefone < 10;
+
+  if (quantidadeTelefone === 0) {
+    erros.telefone = "Informe um números de telefone";
+  }
+
+  if (naoTemTelefone) {
     erros.telefone = "Informe um telefone válido com DDD.";
   }
 
   return erros;
 }
 
-export function validarConfiguracao({
-  nomeRifa,
-  valorNumero,
-  quantidadeNumeros,
-}) {
+export function validarConfiguracao(props = {}) {
+  const { nomeRifa, valorNumero, quantidadeNumeros } = props;
+
   const erros = {};
 
   if (!nomeRifa || nomeRifa.trim().length < 3) {

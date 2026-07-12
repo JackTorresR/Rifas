@@ -6,17 +6,24 @@ import { formatarNumeroExibicao } from "../utils/formatters";
 
 const COMPRADOR_VAZIO = { nome: "", telefone: "" };
 
-export default function ModalReserva({
-  selecionados,
-  totalNumeros,
-  onFechar,
-  onRemoverNumero,
-  onReservar,
-}) {
+export default function ModalReserva(props = {}) {
+  const {
+    config,
+    onFechar,
+    onReservar,
+    selecionados,
+    totalNumeros,
+    onRemoverNumero,
+  } = props;
+
   const [comprador, setComprador] = useState(COMPRADOR_VAZIO);
   const [erros, setErros] = useState({});
   const [enviando, setEnviando] = useState(false);
   const [resultado, setResultado] = useState(null);
+
+  const valorTotal = (
+    (resultado?.reservados.length || 0) * Number(config.valorNumero)
+  ).toFixed(2);
 
   function handleChange(campo, valor) {
     setComprador((atual) => ({ ...atual, [campo]: valor }));
@@ -51,6 +58,31 @@ export default function ModalReserva({
     }
   }
 
+  async function copiarPix() {
+    try {
+      const temCopyApi = navigator.clipboard && window.isSecureContext;
+      if (temCopyApi) {
+        await navigator.clipboard.writeText(config.pixChave);
+      }
+
+      if (!temCopyApi) {
+        const input = document.createElement("textarea");
+        input.value = config.pixChave;
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        document.body.appendChild(input);
+        input.focus();
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+      }
+
+      alert("Chave PIX copiada!");
+    } catch {
+      alert("Não foi possível copiar a chave.");
+    }
+  }
+
   const numerosRestantes = selecionados.filter(
     (n) => !(resultado?.reservados || []).includes(n),
   );
@@ -74,15 +106,9 @@ export default function ModalReserva({
             ×
           </button>
         </div>
-
         {resultado?.sucesso && resultado.reservados.length > 0 && (
-          <div className="mensagem-sucesso">
-            Reserva realizada com sucesso.
-            <br />
-            Entraremos em contato para confirmar o pagamento.
-          </div>
+          <div className="mensagem-sucesso">Reserva realizada com sucesso.</div>
         )}
-
         {resultado?.indisponiveis?.length > 0 && (
           <div className="mensagem-indisponiveis">
             <strong>Os seguintes números já foram reservados:</strong>
@@ -92,11 +118,9 @@ export default function ModalReserva({
             . Escolha outros números.
           </div>
         )}
-
         {resultado?.erroGeral && (
           <div className="mensagem-erro">{resultado.erroGeral}</div>
         )}
-
         {numerosRestantes.length > 0 && !resultado?.sucesso ? (
           <>
             <div className="modal__lista-numeros">
@@ -113,7 +137,6 @@ export default function ModalReserva({
                 </span>
               ))}
             </div>
-
             <FormularioReserva
               comprador={comprador}
               erros={erros}
@@ -130,7 +153,33 @@ export default function ModalReserva({
             </p>
           )
         )}
-
+        {resultado?.sucesso && (
+          <div className="modal__pix">
+            <h3>Pagamento via PIX</h3>
+            <p>
+              <strong>Favorecido:</strong>
+              <br />
+              {config.pixFavorecido}
+            </p>
+            <p>
+              <strong>Valor:</strong>
+              <br />
+              R$ {valorTotal}
+            </p>
+            <p>
+              <strong>Chave PIX:</strong>
+              <br />
+              {config.pixChave}
+            </p>
+            <button type="button" className="botao" onClick={copiarPix}>
+              📋 Copiar chave PIX
+            </button>
+            <small>
+              Após realizar o pagamento, sua reserva será confirmada
+              manualmente.
+            </small>
+          </div>
+        )}
         {resultado?.sucesso && (
           <button
             type="button"

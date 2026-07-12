@@ -67,7 +67,6 @@ async function seed() {
   }
 
   await lote.commit();
-  console.log(`Concluído: ${QUANTIDADE_NUMEROS} números criados/atualizados.`);
 }
 
 seed().catch((err) => {
