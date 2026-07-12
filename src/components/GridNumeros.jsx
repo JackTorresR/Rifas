@@ -37,26 +37,19 @@ export default function GridNumeros({
     <section className="container grade-secao">
       <div className="grade-secao__cabecalho">
         <h2>Escolha seus números</h2>
-
         <div className="grade-secao__legenda">
           <span className="badge badge-disponivel">● Disponível</span>
           <span className="badge badge-reservado">● Reservado</span>
           <span className="badge badge-pago">● Pago</span>
         </div>
       </div>
-
       <h3>Números disponíveis</h3>
-
       <div className="grade-numeros-wrapper">
-        <div className="grade-numeros">
-          {renderNumeros(numerosDisponiveis)}
-        </div>
+        <div className="grade-numeros">{renderNumeros(numerosDisponiveis)}</div>
       </div>
-
       {numerosReservados.length > 0 && (
         <>
           <h3>Números reservados</h3>
-
           <div className="grade-numeros-wrapper">
             <div className="grade-numeros">
               {renderNumeros(numerosReservados, true)}
@@ -64,11 +57,9 @@ export default function GridNumeros({
           </div>
         </>
       )}
-
       {numerosIndisponiveis.length > 0 && (
         <>
           <h3>Números indisponíveis</h3>
-
           <div className="grade-numeros-wrapper">
             <div className="grade-numeros">
               {renderNumeros(numerosIndisponiveis, true)}
