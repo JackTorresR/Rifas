@@ -1,12 +1,19 @@
-import '../styles/Dashboard.css';
-import { formatarMoeda } from '../utils/formatters';
+import "../styles/Dashboard.css";
+import { formatarMoeda } from "../utils/formatters";
 
 export default function Dashboard({ estatisticas, admin = false }) {
-  const { total, disponiveis, reservados, pagos, valorArrecadado, valorPrevisto } = estatisticas;
+  const {
+    total,
+    pagos,
+    reservados,
+    disponiveis,
+    valorPrevisto,
+    valorArrecadado,
+  } = estatisticas;
 
   return (
     <div className="container">
-      <div className="dashboard">
+      <div className={`dashboard ${admin ? "dashboard--admin" : ""}`}>
         <div className="dashboard__card">
           <div className="dashboard__valor">{total}</div>
           <div className="dashboard__label">Total de números</div>
@@ -26,11 +33,15 @@ export default function Dashboard({ estatisticas, admin = false }) {
         {admin && (
           <>
             <div className="dashboard__card">
-              <div className="dashboard__valor">{formatarMoeda(valorArrecadado)}</div>
+              <div className="dashboard__valor">
+                {formatarMoeda(valorArrecadado)}
+              </div>
               <div className="dashboard__label">Valor arrecadado</div>
             </div>
             <div className="dashboard__card">
-              <div className="dashboard__valor">{formatarMoeda(valorPrevisto)}</div>
+              <div className="dashboard__valor">
+                {formatarMoeda(valorPrevisto)}
+              </div>
               <div className="dashboard__label">Valor previsto</div>
             </div>
           </>
