@@ -7,11 +7,14 @@ import ModalReserva from "../components/ModalReserva";
 import Footer from "../components/Footer";
 import { useRifa } from "../hooks/useRifa";
 import { reservarNumeros } from "../services/rifaService";
+import SorteadorNumeros from "../components/SorteadorNumeros";
+import ModalSorteio from "../components/ModalSorteio";
 
 export default function Home() {
   const { config, numeros, estatisticas, carregando } = useRifa();
   const [selecionados, setSelecionados] = useState([]);
   const [modalAberto, setModalAberto] = useState(false);
+  const [sorteioAberto, setSorteioAberto] = useState(false);
 
   function alternarNumero(numero) {
     setSelecionados((atual) =>
@@ -19,6 +22,13 @@ export default function Home() {
         ? atual.filter((n) => n !== numero)
         : [...atual, numero],
     );
+  }
+
+  function confirmarSorteio(numerosSorteados) {
+    setSelecionados((atual) => [...new Set([...atual, ...numerosSorteados])]);
+
+    setSorteioAberto(false);
+    setModalAberto(true);
   }
 
   function removerNumero(numero) {
@@ -73,6 +83,7 @@ export default function Home() {
     <>
       <Header config={config} />
       <Dashboard estatisticas={estatisticas} />
+      <SorteadorNumeros onAbrir={() => setSorteioAberto(true)} />
       <GridNumeros
         numeros={numeros}
         selecionados={selecionados}
@@ -93,6 +104,13 @@ export default function Home() {
           onReservar={handleReservar}
           onRemoverNumero={removerNumero}
           totalNumeros={config.quantidadeNumeros}
+        />
+      )}
+      {sorteioAberto && (
+        <ModalSorteio
+          numeros={numeros}
+          onSelecionar={confirmarSorteio}
+          onFechar={() => setSorteioAberto(false)}
         />
       )}
       <Footer config={config} />
